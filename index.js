@@ -15,9 +15,10 @@ const Discord = require('discord.js');
 const client = new Discord.Client();
 
 client.on('ready',() => {
-  console.log('I\'m Online\nI\'m Online');
+  console.log('I\'m Online');
 });
 
+const rpsArray = ["piedra", "papel", "tijeras"];
 const prefix = '!';
 client.on('message', message => {
   //If autor is this bot, skip
@@ -25,59 +26,61 @@ client.on('message', message => {
   
   //If command starts with prefix enter
   if (message.content.startsWith(prefix)) {
-    var str = message.content.substring(0,1).split(" ");
-    
+    var str = message.content.slice(1).split(" ");
     //Check the args of the command
     switch (str[0].toLowerCase()){
       case "ping":
         message.channel.send('pong');
         break;
       case "ppt":
-        message.channel.send(piedraPapelTijeras(message.author.username, str[1].trim().toLowerCase()));
+        if (str.length > 1 && rpsArray.indexOf(str[1].toLowerCase()) > -1) {
+          var iaSelection = rpsArray[Math.floor(Math.random() * rpsArray.length)];
+          message.channel.send("ST ha elegido: " + iaSelection);
+          //message.channel.send(message.author.username + " ha elegido: " + str[1].trim().toLowerCase());
+          message.channel.send(piedraPapelTijeras(message.author.username, str[1], iaSelection));
+        }
+        else{
+          message.channel.send("Las opciones son: " + rpsArray.join());
+        }
         break;
     }
   }
 });
 
-function piedraPapelTijeras(userName, userSelection) {
-  const rpsArray = ["piedra", "papel", "tijeras"];
-  var iaSelection = rpsArray[Math.floor(Math.random() * rpsArray.length)];
-  var res;
+client.login(process.env.TOKEN);
+
+function piedraPapelTijeras(userName, userSelection, iaSelection) {
   
-  if (userSelection = iaSelection){
-    res = userName + ", habéis empatado!";
+  if (userSelection === iaSelection){
+    return userName + ", habéis empatado!";
   }
     
   switch (userSelection){
     case "piedra":
-      if (iaSelection = "tijeras"){
-        res = userName + " ha aplastado a ST!";
+      if (iaSelection === "tijeras"){
+        return userName + " ha aplastado a ST!";
       }
-      else if (iaSelection = "papel"){
-        res = "ST ha humillado a " + userName + "!";
+      else if (iaSelection === "papel"){
+        return "ST ha humillado a " + userName + "!";
       }
       break;
     case "papel":
-      if (iaSelection = "piedra"){
-        res = userName + " ha empapelado a ST!";
+      if (iaSelection === "piedra"){
+        return userName + " ha empapelado a ST!";
       }
-      else if (iaSelection = "tijeras"){
-        res = userName + " ha sido STemeado!";
+      else if (iaSelection === "tijeras"){
+        return userName + " ha sido STemeado!";
       }
       break;
     case "tijeras":
-      if (iaSelection = "piedra"){
-        res = " ST le ha dado una lección a " + userName + "!";
+      if (iaSelection === "piedra"){
+        return " ST le ha dado una lección a " + userName + "!";
       }
-      else if (iaSelection = "papel"){
-        res = userName + " ha cortado por la mitad a ST!";
+      else if (iaSelection === "papel"){
+        return userName + " ha cortado por la mitad a ST!";
       }
       break;
     default:
-      res = "Las opciones son: " + rpsArray.join();
+      return "Las opciones son: " + rpsArray.join();
   }
-  
-  return res;
 }
-
-client.login(process.env.TOKEN);

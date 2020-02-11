@@ -15,7 +15,8 @@
     "node": "8.x"
   },
   "repository": {
-    "url": "https://glitch.com/edit/#!/hello-express"
+    "type" : "git",
+    "url": "https://github.com/Marcpusu/ST_bot.git"
   },
   "license": "MIT",
   "keywords": []

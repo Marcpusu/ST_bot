@@ -1,8 +1,9 @@
 const http = require('http');
 const express = require('express');
 const app = express();
+
 app.get("/", (request, response) => {
-  console.log(Date.now() + " Ping Received");
+  console.log(Date.now().toLocaleString() + " Ping Received");
   response.sendStatus(200);
 });
 
@@ -14,8 +15,16 @@ setInterval(() => {
 const Discord = require('discord.js');
 const client = new Discord.Client();
 
+var cron = require("cron");
+var cronPaCasa = cron.job("0 30 16 * * MON,TUE,WED,THU", function() {
+  client.channels.get("676747821029785609").send(
+    "<@343818331280637952>, pa tu casa!"
+  );
+});
+cronPaCasa.start();
+
 client.on('ready',() => {
-  console.log('I\'m Online');
+  console.log('Hello, i\'m ready!');
 });
 
 const rpsArray = ["piedra", "papel", "tijeras"];
@@ -30,7 +39,7 @@ client.on('message', message => {
     //Check the args of the command
     switch (str[0].toLowerCase()){
       case "ping":
-        message.channel.send('pong');
+        message.reply('pong');
         break;
       case "ppt":
         if (str.length > 1 && rpsArray.indexOf(str[1].toLowerCase()) > -1) {

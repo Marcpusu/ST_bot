@@ -9,7 +9,9 @@
   },
   "dependencies": {
     "discord.js": "^11.5.1",
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "cron": "^1.8.2",
+    "node-cron": "^2.0.3"
   },
   "engines": {
     "node": "8.x"
@@ -18,6 +20,14 @@
     "type" : "git",
     "url": "https://github.com/Marcpusu/ST_bot.git"
   },
+  "author": "Marcpusu",
+  "homepage": "https://github.com/Marcpusu/ST_bot#readme",
   "license": "MIT",
-  "keywords": []
+  "bugs": {
+    "url": "https://github.com/Marcpusu/ST_bot/issues"
+  },
+  "keywords": [
+    "Bot",
+    "Discord"
+  ]
 }
